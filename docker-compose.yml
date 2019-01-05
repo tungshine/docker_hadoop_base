@@ -1,0 +1,30 @@
+version: '2'
+services:
+  hadoop-master:
+    image: alex/hadoop:latest
+    hostname: hadoop-master
+    container_name: hadoop-master
+    #restart: always
+    privileged: true
+    ports:
+      - "50070:50070"
+      - "9000:9000"
+    volumes: 
+      - hadoop-master:/tmp/hadoop/dfs/name
+    env_file: 
+      - ./hadoop.env
+
+  hadoop-slave1:
+    image: alex/hadoop:latest
+    hostname: hadoop-slave1
+    container_name: hadoop-slave1
+    #restart: always
+    privileged: true
+    ports: 
+      - "9001:9001"
+    volumes:
+      - hadoop-slave1:/tmp/hadoop/data
+
+volumes:
+  hadoop-master:
+  hadoop-slave1:
